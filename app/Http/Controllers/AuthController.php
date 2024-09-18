@@ -13,7 +13,17 @@ class AuthController extends Controller
     {
         return view('auth.login');
     }
-    public function login() {}
+    public function login(Request $request) {
+        $credentials = $request->validate([
+            "email"=> "required",
+            "password"=> "required",
+        ]);
+
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            return redirect()->route('home');
+        }
+    }
     public function registerPage(Request $request)
     {
         return view('auth.register');
@@ -34,14 +44,10 @@ class AuthController extends Controller
             ]
         );
 
-        // return dd($newUser->password);
-        // return dd($newUser->email);
-        
-
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
 
-            return redirect()->route('dashboard');
+            return redirect()->route('home');
         }
         
         return back()->withErrors([

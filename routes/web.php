@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('dashboard')->middleware('auth');
+    return view('home');
+})->name('home')->middleware('auth');
 
 Route::controller(AuthController::class)->group(function (){
     Route::get('/login', 'loginPage')->name('login');
