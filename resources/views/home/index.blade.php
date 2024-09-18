@@ -50,8 +50,8 @@
                         </div>
                         <p class="line-clamp-3 text-neutral-700 mb-5">${val.description}</p>
                         <div class="flex gap-3">
-                            <a href="/" class="block min-w-[80px] flex-1 border border-rose-500 p-1.5 text-[13px] text-center text-rose-500 font-bold">Detail</a>
-                            <a href="/" class="block min-w-[80px] flex-1 border border-rose-500 bg-rose-500 p-1.5 text-[13px] text-center text-white font-bold">Booking</a>
+                            <a href="/restaurant/${val.id}" class="block min-w-[80px] flex-1 border border-rose-500 hover:bg-rose-500 hover:text-white transition-all p-1.5 text-[13px] text-center text-rose-500 font-bold">Detail</a>
+                            <a href="/" class="block min-w-[80px] flex-1 border border-rose-500 hover:bg-rose-600 transition-all bg-rose-500 p-1.5 text-[13px] text-center text-white font-bold">Booking</a>
                             </div>
                     </div>
                 `;
