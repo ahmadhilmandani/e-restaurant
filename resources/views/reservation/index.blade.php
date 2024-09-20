@@ -10,38 +10,67 @@
 </head>
 
 <body>
-    <div class="bg-slate-50 py-6 w-full min-h-screen flex justify-center items-center">
-        <form action="/reservation" method="POST" class="max-w-[640px] w-full">
-          @csrf
-            <main class="bg-slate-100 border border-slate-200 p-4">
-                <h1 class="text-rose-400 text-center mb-5 font-bold text-4xl">
-                    RSVP
-                </h1>
-                <div class="flex gap-3 mb-5">
-                    <div class="min-w-[180px] flex-1">
-                        <label for="" class="block mb-1 text-[14px] font-semibold">Atas nama</label>
-                        <input name="name" type="text"
-                            class="block w-full px-3 py-1.5 focus:outline-none focus:border-none focus:ring-1 focus:ring-rose-400 border border-slate-200 bg-slate-50">
+    <div class="bg-slate-50 w-full min-h-screen px-3 xl:p-20">
+        <a href="/" class="flex gap-2 items-center text-neutral-900">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left stroke-neutral-900">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M15 6l-6 6l6 6" />
+            </svg>
+            kembali
+
+        </a>
+        @foreach ($reservationData as $data)
+            <div class="mt-10 border border-slate-300 p-10 flex gap-10 bg-slate-100">
+                <div class="min-w-[190px] flex-1">
+                    <h1 class="text-rose-500 font-bold text-3xl mb-5">
+                        {{ $data->restaurant_name }}
+                    </h1>
+                    <img src="https://restaurant-api.dicoding.dev/images/medium/{{ $data->restaurant_picture_id }}"
+                        alt="" class="w-full">
+                </div>
+                <div class="min-w-[200px] flex-1">
+                    <div class="flex gap-10 mb-10">
+                        <div>
+                            <b class="block mb-2">Atas Nama</b>
+                            <div>{{ Auth::user()->name }}</div>
+                        </div>
+                        <div>
+                            <b class="block mb-2">Jumlah Kursi</b>
+                            <div>{{ $data->reserved_chair }}</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-10 mb-10">
+                        <div>
+                            <b class="block mb-2">Tanggal</b>
+                            <div>{{ $data->rsvp_date }}</div>
+                        </div>
+                        <div>
+                            <b class="block mb-2">Jam</b>
+                            <div>{{ $data->rsvp_time }}</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-5">
+                        <form action="/rsvp/{{ $data->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="block min-w-[200px] flex-1 border border-rose-500 hover:bg-rose-500 hover:text-white transition-all p-1.5 text-[13px] text-center text-rose-500 font-bold">
+                                Hapus
+                            </button>
+                        </form>
+                        <a href="/rsvp/{{ $data->id }}/edit"
+                            class="block min-w-[200px] flex-1 border border-yellow-500 hover:bg-yellow-500 hover:text-white transition-all p-1.5 text-[13px] text-center text-yellow-500 font-bold">
+                            Edit
+                        </a>
                     </div>
                 </div>
+            </div>
+        @endforeach
+        <div class="">
 
-                <div class="flex gap-3 mb-5">
-                    <div class="min-w-[180px] flex-1">
-                        <label for="" class="block mb-1 text-[14px] font-semibold">Jumlah Kursi</label>
-                        <input name="chair" type="number"
-                            class="block w-full px-3 py-1.5 focus:outline-none focus:border-none focus:ring-1 focus:ring-rose-400 border border-slate-200 bg-slate-50">
-                    </div>
-                    <div class="min-w-[180px] flex-1">
-                        <label for="" class="block mb-1 text-[14px] font-semibold">Jam</label>
-                        <input name="clock" type="time"
-                            class="block w-full px-3 py-1.5 focus:outline-none focus:border-none focus:ring-1 focus:ring-rose-400 border border-slate-200 bg-slate-50">
-                    </div>
-                </div>
-
-                <button
-                    class="block w-full py-1.5 bg-rose-400 text-white font-bold text-center hover:bg-rose-500 transition-all">Pesan!</button>
-            </main>
-        </form>
+        </div>
     </div>
 </body>
 

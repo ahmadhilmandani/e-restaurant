@@ -16,7 +16,9 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        return view('reservation.index');
+        // return dd(Auth::user());
+        $reservation = Reservation::where('user_id', Auth::user()->id)->orderBy('rsvp_date', 'desc')->get();
+        return view('reservation.index', ["reservationData" => $reservation]);
     }
 
     /**
@@ -97,7 +99,7 @@ class ReservationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "edit page";
     }
 
     /**
@@ -120,6 +122,6 @@ class ReservationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return dd($id);
     }
 }
