@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReservationsController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\UserOrderController;
 use Illuminate\Http\Request;
@@ -36,8 +37,15 @@ Route::get('/logout', function (Request $request) {
     $request->session()->invalidate();
 
     $request->session()->regenerateToken();
+
+    return redirect()->route('login');
 });
 
+
+Route::resource('/rsvp', controller: ReservationsController::class)->except([
+    "create"
+]);
+Route::get('/rsvp/create/{id}', action: [ReservationsController::class, 'create']);
 Route::get('/restaurant/{id}', [RestaurantController::class, 'show']);
 
 Route::get('/food/{id}', function ($id) {

@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@keyframes toast-animation {
+  0% {
+      transform: translate(0px, -100px);
+  }
+
+  30% {
+      transform: translate(0px, 0px);
+  }
+
+  70% {
+      transform: translate(0px, 0px);
+  }
+
+  100% {
+      transform: translate(0px, -100px);
+      /* Kembali ke posisi awal */
+  }
+}
+
+.toast-animation {
+  animation-duration: 8s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
+  animation-name: toast-animation;
+}

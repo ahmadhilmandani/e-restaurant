@@ -9,9 +9,29 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body>
-    <div class="px-3 xl:p-20 bg-slate-50">
+<body class="bg-slate-50">
+
+    <nav class="w-full h-[72px] bg-slate-100 border-b border-slate-300 flex justify-between items-center px-4 xl:px-20 fixed top-0 left-0 right-0 z-10">
+        <div class="text-neutral-700 font-bold text-xl">
+            <span class="text-rose-500 font-bold text-xl">E</span>-Restaurant
+        </div>
+
+        <div class="flex gap-10 items-center">
+            <a href="" class="text-neutral-700">Home</a>
+            <a href="/rsvp" class="text-neutral-700">Pesanan Saya</a>
+            <a href="" class="text-neutral-700">Profil</a>
+            <a href="/logout" class="text-rose-500 border-b border-rose-500">Logout</a>
+        </div>
+
+    </nav>
+    <div class="px-3 xl:p-20 bg-slate-50 mt-10">
         <div class="border-b border-slate-200 mb-10 pb-3">
+            @if (session('success_rsvp'))
+            <div
+                class="bg-green-500 border-b border-green-200 w-full text-center py-4 font-bold text-white fixed top-0 left-0 right-0 z-10 toast-animation">
+                {{ session('success_rsvp') }}
+            </div>
+        @endif
             <h1 class="text-4xl font-bold text-rose-500 mb-3">
                 Pilih Restoran!😋
             </h1>
@@ -51,7 +71,7 @@
                         <p class="line-clamp-3 text-neutral-700 mb-5">${val.description}</p>
                         <div class="flex gap-3">
                             <a href="/restaurant/${val.id}" class="block min-w-[80px] flex-1 border border-rose-500 hover:bg-rose-500 hover:text-white transition-all p-1.5 text-[13px] text-center text-rose-500 font-bold">Detail</a>
-                            <a href="/" class="block min-w-[80px] flex-1 border border-rose-500 hover:bg-rose-600 transition-all bg-rose-500 p-1.5 text-[13px] text-center text-white font-bold">Booking</a>
+                            <a href="/rsvp/create/${val.id}" class="block min-w-[80px] flex-1 border border-rose-500 hover:bg-rose-600 transition-all bg-rose-500 p-1.5 text-[13px] text-center text-white font-bold">Booking</a>
                             </div>
                     </div>
                 `;
