@@ -123,7 +123,6 @@ class ReservationsController extends Controller
         $reservation->save();
 
         $request->session()->flash('success_rsvp', 'Anda Telah mengupdate RSVP di: ' . $reservation->restaurant_name);
-        // $request->session()->flash('status', 'Task was successful!');
 
         return redirect()->route('home');
     }
@@ -134,8 +133,16 @@ class ReservationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+        $reservation = Reservation::find($id);
+
+        $reservation->delete();
+
+        $request->session()->flash('success_rsvp', 'Anda Telah menghapus RSVP di: ' . $reservation->restaurant_name);
+
+        return redirect()->route('home');
+
         return dd($id);
     }
 }
