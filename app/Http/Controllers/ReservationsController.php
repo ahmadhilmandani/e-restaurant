@@ -49,46 +49,35 @@ class ReservationsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            "chair"=> "required",
-            "rsvp_date"=> "required",
-            "rsvp_time"=> "required",
+            "chair" => "required",
+            "rsvp_date" => "required",
+            "rsvp_time" => "required",
         ]);
 
         $reservation = new Reservation;
 
         $reservation->user_id = Auth::user()->id;
-        
+
         $reservation->restaurant_name = $request->input('restaurant_name');
-        
+
         $reservation->restaurant_picture_id = $request->input('restaurant_pic_id');
-        
+
         $reservation->restaurant_address = $request->input('restaurant_address');
-        
+
         $reservation->reserved_chair = $request->input('chair');
-        
-        $reservation->rsvp_date =$request->input('rsvp_date');
-        
+
+        $reservation->rsvp_date = $request->input('rsvp_date');
+
         $reservation->rsvp_time = $request->input('rsvp_time');
 
         $reservation->save();
 
-        $request->session()->flash('success_rsvp', 'Anda Telah RSVP di: '.$reservation->restaurant_name);
+        $request->session()->flash('success_rsvp', 'Anda Telah RSVP di: ' . $reservation->restaurant_name);
         // $request->session()->flash('status', 'Task was successful!');
-        
+
         return redirect()->route('home');
 
         // return dd($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -99,7 +88,13 @@ class ReservationsController extends Controller
      */
     public function edit($id)
     {
-        return "edit page";
+        $reservationDetail = Reservation::find($id);
+
+        return view('reservation.edit', [
+            "data" => $reservationDetail,
+            "user_name" => Auth::user()->name
+        ]);
+        // return "edit page";
     }
 
     /**
@@ -111,7 +106,26 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "chair" => "required",
+            "rsvp_date" => "required",
+            "rsvp_time" => "required",
+        ]);
+
+        $reservation = Reservation::find($id);
+
+        $reservation->reserved_chair = $request->input('chair');
+
+        $reservation->rsvp_date = $request->input('rsvp_date');
+
+        $reservation->rsvp_time = $request->input('rsvp_time');
+
+        $reservation->save();
+
+        $request->session()->flash('success_rsvp', 'Anda Telah mengupdate RSVP di: ' . $reservation->restaurant_name);
+        // $request->session()->flash('status', 'Task was successful!');
+
+        return redirect()->route('home');
     }
 
     /**

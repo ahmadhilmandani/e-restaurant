@@ -43,7 +43,7 @@ Route::get('/logout', function (Request $request) {
 
 
 Route::resource('/rsvp', controller: ReservationsController::class)->except([
-    "create"
+    "create", "show"
 ]);
 Route::get('/rsvp/create/{id}', action: [ReservationsController::class, 'create']);
 Route::get('/restaurant/{id}', [RestaurantController::class, 'show']);

@@ -22,7 +22,7 @@
 
         </a>
         @foreach ($reservationData as $data)
-            <div class="mt-10 border border-slate-300 p-10 flex gap-10 bg-slate-100">
+            <div class="mt-10 border border-slate-300 p-10 flex gap-10 bg-slate-100 flex-wrap">
                 <div class="min-w-[190px] flex-1">
                     <h1 class="text-rose-500 font-bold text-3xl mb-5">
                         {{ $data->restaurant_name }}
@@ -32,31 +32,31 @@
                 </div>
                 <div class="min-w-[200px] flex-1">
                     <div class="flex gap-10 mb-10">
-                        <div>
+                        <div class="min-w-[160px] flex-1">
                             <b class="block mb-2">Atas Nama</b>
                             <div>{{ Auth::user()->name }}</div>
                         </div>
-                        <div>
+                        <div class="min-w-[160px] flex-1">
                             <b class="block mb-2">Jumlah Kursi</b>
                             <div>{{ $data->reserved_chair }}</div>
                         </div>
                     </div>
                     <div class="flex gap-10 mb-10">
-                        <div>
+                        <div class="min-w-[160px] flex-1">
                             <b class="block mb-2">Tanggal</b>
                             <div>{{ $data->rsvp_date }}</div>
                         </div>
-                        <div>
+                        <div class="min-w-[160px] flex-1">
                             <b class="block mb-2">Jam</b>
                             <div>{{ $data->rsvp_time }}</div>
                         </div>
                     </div>
-                    <div class="flex gap-5">
-                        <form action="/rsvp/{{ $data->id }}" method="POST">
+                    <div class="flex gap-5 flex-wrap">
+                        <form class="block min-w-[200px] flex-1" action="/rsvp/{{ $data->id }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
-                                class="block min-w-[200px] flex-1 border border-rose-500 hover:bg-rose-500 hover:text-white transition-all p-1.5 text-[13px] text-center text-rose-500 font-bold">
+                                class="w-full border border-rose-500 hover:bg-rose-500 hover:text-white transition-all p-1.5 text-[13px] text-center text-rose-500 font-bold">
                                 Hapus
                             </button>
                         </form>
